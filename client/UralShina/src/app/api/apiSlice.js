@@ -59,8 +59,12 @@ export const apiSlice = createApi({
       query: () => "/tags/",
     }),
 
-    chengeTag: builder.query({
-      query: (tagId) => ({ url: `/tags/${tagId}/`, method: "PUT" }),
+    chengeTag: builder.mutation({
+      query: ({ initialState, tagId }) => ({
+        url: `/tags/${tagId}/`,
+        method: "PUT",
+        body: initialState,
+      }),
     }),
     chengePost: builder.mutation({
       query: ({ initialState, postId }) => ({
@@ -99,7 +103,7 @@ export const apiSlice = createApi({
       query: (initialState) => ({
         url: "/tags/",
         body: initialState,
-        method: "PUT",
+        method: "POST",
       }),
     }),
   }),
@@ -113,7 +117,7 @@ export const {
   useGetUsersDBQuery,
   useGetPostQuery,
   useGetTagsQuery,
-  useChengeTagQuery,
+  useChengeTagMutation,
   useGetFilterPostsQuery,
   useChengePostMutation,
   useDeleteTagMutation,

@@ -1,9 +1,8 @@
 export const useProgressCheck = (
   data,
-  { errorMessege = "error", callBack, fillter = {} }
+  { errorMessege = "error", callBack = null, fillter = null }
 ) => {
   let content;
-
   if (data.isLoading) {
     content = <div>loding</div>;
   } else if (data.isSuccess) {

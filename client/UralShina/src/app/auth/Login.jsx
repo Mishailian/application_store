@@ -19,7 +19,7 @@ export const Login = (props) => {
 
   const handleLogin = async () => {
     try {
-      const { data, error } = await auth(credentials);
+      const { data, error } = await auth({ initialState: credentials });
       if (data) {
         const is_superuser = data.is_superuser;
         const username = data.username;
@@ -34,6 +34,7 @@ export const Login = (props) => {
             token: token,
           })
         );
+
         const users = useProgressCheck(obj, { callBack: setUsersDataBase });
         console.log(users);
       } else {

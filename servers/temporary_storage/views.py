@@ -15,8 +15,8 @@ class Temporary_storage_api(viewsets.ModelViewSet):
     queryset = Temporary_storage.objects.all()
     serializer_class = Temporary_storage_serializer
     lookup_field = 'pk'
-    # authentication_classes = [TokenAuthentication]
-    # permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def list(self, request, *args, **kwargs):
         executor_id_param = self.request.query_params.get('ex_i')

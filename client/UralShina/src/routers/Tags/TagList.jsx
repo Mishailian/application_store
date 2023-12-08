@@ -1,11 +1,11 @@
-import { createTags } from "../../creatFunctions/createTags";
-import { useGetTagsQuery } from "../../app/api/apiSlice";
-import { useProgressCheck } from "../../hooks/useProgressCheck";
 import { AddTag } from "./AddTag";
+import { useGetTagsQuery } from "../../app/api/apiSlice";
+import { createTags } from "../../creatFunctions/createTags";
+import { useProgressCheck } from "../../hooks/useProgressCheck";
 
 export const TagList = () => {
-  const callback = (tags) => createTags(tags);
   const obj = useGetTagsQuery();
+  const callback = (tags) => createTags(tags);
   const content = useProgressCheck(obj, { callBack: callback });
   return (
     <div>

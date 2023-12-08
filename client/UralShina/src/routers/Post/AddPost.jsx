@@ -1,42 +1,15 @@
-import { useAddPostMutation } from "../../app/api/apiSlice";
-import { useState } from "react";
 import { useSelector } from "react-redux";
+import { useInputCheck } from "../../hooks/useInputCheck";
+import { useAddPostMutation } from "../../app/api/apiSlice";
 
 export const AddPost = () => {
   const username_id = useSelector((state) => state.auth.username_id);
-  const [formData, setFormData] = useState({
-    name: "",
-    about: "",
-    price_id: "",
-    data_dead_line: "",
-    executor: null,
-    user: null,
-    tags: [],
-    author: username_id,
-  });
-  const [sendForm, {}] = useAddPostMutation();
+  const [postObj] = useAddPostMutation();
+  const { inputData: formData, handleChange, handleSubmit } = useInputCheck();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-  const handleSubmit = async () => {
-    if (formData.name !== "") {
-      try {
-        const { data, error } = await sendForm(formData);
-      } catch {
-        console.log(error);
-      }
-    } else {
-      alert("вы не ввели имя!");
-    }
-  };
-
+  const submite = () => handleSubmit(postObj);
   return (
-    <form className="row gy-2 gx-3 align-items-center" onSubmit={handleSubmit}>
+    <form className="row gy-2 gx-3 align-items-center" onSubmit={submite}>
       <div className="col-auto">
         <label className="visually-hidden" htmlFor="autoSizingInput">
           название

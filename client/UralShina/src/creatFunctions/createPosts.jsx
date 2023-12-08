@@ -1,10 +1,11 @@
-import { PostBlock } from "../routers/PostsList/blocks/PostBlock";
 import {
   filterByConditions,
   filterByCondition,
 } from "./filterFunctions/filterFunctions";
+import { PostBlock } from "../routers/PostsList/blocks/PostBlock";
 
 const postsFilter = (posts, filter) => {
+  console.log(posts);
   switch (filter.filterMetod) {
     case "find":
       break;

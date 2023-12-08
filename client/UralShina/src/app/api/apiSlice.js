@@ -29,7 +29,7 @@ export const apiSlice = createApi({
       query: () => "/store/",
     }),
     getPost: builder.query({
-      query: (postId) => ({
+      query: ({ postId }) => ({
         url: `/store/${postId}/`,
         method: "GET",
       }),
@@ -75,7 +75,7 @@ export const apiSlice = createApi({
     }),
 
     authentication: builder.mutation({
-      query: (initialState) => ({
+      query: ({ initialState }) => ({
         url: "/token/",
         body: initialState,
         method: "POST",
@@ -93,14 +93,14 @@ export const apiSlice = createApi({
     }),
 
     addPost: builder.mutation({
-      query: (initialState) => ({
+      query: ({ initialState }) => ({
         url: "/store/",
         body: initialState,
         method: "POST",
       }),
     }),
     addTag: builder.mutation({
-      query: (initialState) => ({
+      query: ({ initialState }) => ({
         url: "/tags/",
         body: initialState,
         method: "POST",

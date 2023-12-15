@@ -3,10 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useAuthenticationMutation } from "../api/apiSlice";
 import { setToken } from "./authSlice";
 import { setUsers } from "./usesSlice";
+import { setTags } from "./tagsSlice";
 import { useGetUsersDBQuery } from "../api/apiSlice";
 import { useProgressCheck } from "../../hooks/useProgressCheck";
 
-export const Login = (props) => {
+export const Login = () => {
   const authToken = useSelector((state) => state.auth.token);
   const dispatch = useDispatch();
   const [credentials, setCredentials] = useState({
@@ -15,7 +16,7 @@ export const Login = (props) => {
   });
   const setUsersDataBase = (data) => dispatch(setUsers(data));
   const obj = useGetUsersDBQuery();
-  const [auth, { data, error, isLoading }] = useAuthenticationMutation();
+  const [auth] = useAuthenticationMutation();
 
   const handleLogin = async () => {
     try {

@@ -3,16 +3,19 @@ import { useState } from "react";
 export const useInputCheck = () => {
   const [inputData, setFormData] = useState({});
 
-  const setData = (formData, data = null) => {
-    if (Object.keys(inputData).length === 0) {
+  const setData = (formData, data = null, canRepeat = false) => {
+    if (Object.keys(inputData).length === 0 || canRepeat) {
       setFormData({ formData });
-      if (data) {
+      if (formData) {
         setFormData((initState) => ({
           ...initState,
           additionalData: data,
         }));
       }
     }
+  };
+  var resetData = () => {
+    setFormData({});
   };
 
   const clearInput = () => {
@@ -26,12 +29,28 @@ export const useInputCheck = () => {
     }));
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      formData: { ...prevData.formData, [name]: value },
-    }));
+  const handleChange = (e, addStructure = null) => {
+    var name = e?.target?.name ?? Object.keys(e)[0];
+    var value = e?.target?.value ?? Object.values(e)[0];
+
+    if (addStructure !== null) {
+      setFormData((prevData) => ({
+        ...prevData,
+        formData: {
+          ...prevData.formData,
+          [addStructure]: {
+            ...prevData.formData?.[addStructure],
+            [name]: value,
+          },
+        },
+      }));
+    } else {
+      console.log(name, value);
+      setFormData((prevData) => ({
+        ...prevData,
+        formData: { ...prevData.formData, [name]: value },
+      }));
+    }
   };
 
   const handleSubmit = async (callback) => {
@@ -53,5 +72,12 @@ export const useInputCheck = () => {
     }
   };
 
-  return { inputData, setFormData, handleChange, handleSubmit, setData };
+  return {
+    inputData,
+    setFormData,
+    handleChange,
+    handleSubmit,
+    setData,
+    resetData,
+  };
 };

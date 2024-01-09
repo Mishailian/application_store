@@ -15,14 +15,15 @@ export const Root = () => {
   const is_superuser = useSelector((state) => state.auth.is_superuser);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  var isTokenValid = JSON.parse(localStorage.getItem("persist:root"));
+  isTokenValid = JSON.parse(isTokenValid.auth).token;
   useEffect(() => {
-    if (token) {
+    if (!isTokenValid) {
       dispatch(
         setToken({ token, is_superuser, username, username_id, isAuth: true })
       );
     }
-  });
+  }, [isTokenValid]);
 
   if (isAuth) {
     return (

@@ -5,17 +5,16 @@ export const useInputCheck = () => {
 
   const setData = (formData, data = null, canRepeat = false) => {
     if (Object.keys(inputData).length === 0 || canRepeat) {
-      setFormData({ formData });
-      if (formData) {
-        setFormData((initState) => ({
-          ...initState,
-          additionalData: data,
-        }));
+      var obj = { formData };
+      if (data) {
+        obj.additionalData = data;
       }
+      setFormData(obj);
+      return formData;
     }
   };
   var resetData = () => {
-    setFormData({});
+    return setFormData({});
   };
 
   const clearInput = () => {
@@ -32,25 +31,23 @@ export const useInputCheck = () => {
   const handleChange = (e, addStructure = null) => {
     var name = e?.target?.name ?? Object.keys(e)[0];
     var value = e?.target?.value ?? Object.values(e)[0];
+    var obj = {
+      ...inputData,
+      formData: { ...inputData?.formData },
+    };
 
-    if (addStructure !== null) {
-      setFormData((prevData) => ({
-        ...prevData,
-        formData: {
-          ...prevData.formData,
-          [addStructure]: {
-            ...prevData.formData?.[addStructure],
-            [name]: value,
-          },
+    if (addStructure !== null)
+      obj.formData = {
+        ...inputData.formData,
+        [addStructure]: {
+          ...inputData.formData?.[addStructure],
+          [name]: value,
         },
-      }));
-    } else {
-      console.log(name, value);
-      setFormData((prevData) => ({
-        ...prevData,
-        formData: { ...prevData.formData, [name]: value },
-      }));
+      };
+    else {
+      obj.formData = { ...obj.formData, [name]: value };
     }
+    setFormData(obj);
   };
 
   const handleSubmit = async (callback) => {

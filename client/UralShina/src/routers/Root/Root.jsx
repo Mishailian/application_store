@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { staticApi as s } from "../../static/static";
+import { staticApi } from "../../static/static";
 import { Outlet } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,6 +7,7 @@ import { setToken } from "../../app/auth/authSlice";
 import { Login } from "../../app/auth/Login";
 
 export const Root = () => {
+  var s = staticApi();
   // надо оптемезировать внизу а то диспачим постоянно при любом ножатии
   const token = useSelector((state) => state.auth.token);
   const isAuth = useSelector((state) => state.auth.isAuth);

@@ -93,11 +93,14 @@ export const apiSlice = createApi({
     }),
 
     addPost: builder.mutation({
-      query: ({ initialState }) => ({
-        url: "/store/",
-        body: initialState,
-        method: "POST",
-      }),
+      query: ({ initialState }) => {
+        console.log(initialState);
+        return {
+          url: "/store/",
+          body: initialState,
+          method: "POST",
+        };
+      },
     }),
     addTag: builder.mutation({
       query: ({ initialState }) => ({

@@ -1,12 +1,14 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
-import { staticApi as s } from "../../../static/static";
+import { staticApi, getUsersTable } from "../../../static/static";
 import { useDeletePostMutation } from "../../../app/api/apiSlice";
 import { useSelector } from "react-redux";
 
 export const PostBlock = (props) => {
   const [del, {}] = useDeletePostMutation();
   const is_superuser = useSelector((state) => state.auth.is_superuser);
+  var s = staticApi();
+  var executor = getUsersTable()?.[props.data.executor];
 
   const dellete = async () => {
     await del(props.data.id);
@@ -33,7 +35,7 @@ export const PostBlock = (props) => {
           <div className="ml-2">
             <p className="text-info">
               {props.data.executor !== null && props.data.executor !== undefined
-                ? props.data.executor
+                ? executor
                 : "undefined"}
             </p>
           </div>

@@ -42,6 +42,7 @@ export const useAddField = (fieldStructure, Component) => {
   };
   var addField = () => {
     var obj = prevObject();
+    console.log(formData);
     var lastId = data[data.length - 1]?.id ?? -1;
     setData(
       { ...formData?.formData, [lastId + 1]: obj ?? fieldStructure },
@@ -64,10 +65,13 @@ export const useAddField = (fieldStructure, Component) => {
       <Component
         chenge={chenge}
         del={deleteField}
-        data={formData}
+        data={formData.formData}
         name={ob.id}
       />
     </div>
   ));
-  return [...result, <button onClick={() => addField()}>add</button>];
+  return {
+    component: [...result, <button onClick={() => addField()}>add</button>],
+    componentData: formData,
+  };
 };

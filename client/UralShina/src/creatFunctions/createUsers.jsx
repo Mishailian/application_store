@@ -1,4 +1,4 @@
-import { staticApi as s } from "../static/static";
+import { staticApi } from "../static/static";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { User } from "../routers/User/User";
@@ -6,6 +6,7 @@ import { User } from "../routers/User/User";
 export const createUsers = (fillter) => {
   const { users } = useSelector((state) => state.users);
   const navigate = useNavigate();
+  var s = staticApi();
   return users.map((user) => (
     <div key={user["id"]}>
       <User userId={user["id"]} />

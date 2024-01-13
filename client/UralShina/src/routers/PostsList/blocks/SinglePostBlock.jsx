@@ -1,4 +1,7 @@
 import { useEffect } from "react";
+import { unwrapData } from "../../../creatFunctions/unwrapData";
+import { TasksFields } from "../../../forms/TasksFields";
+import { TasksHeader } from "../../../forms/tasksHeader";
 
 export const SinglePostBlock = (data) => {
   const postData = data.data;
@@ -13,7 +16,9 @@ export const SinglePostBlock = (data) => {
     about: postData.about,
     price_id: postData.price_id,
   };
-
+  console.log(postData.about);
+  var decodedAbout = unwrapData(postData.about, TasksFields);
+  // console.log(typeof decodedAbout);
   useEffect(() => {
     setData(obj, { postId });
   }, [obj, postId, setData]);
@@ -36,19 +41,8 @@ export const SinglePostBlock = (data) => {
       </div>
       <br />
       <label htmlFor="floatingTextarea2">Описание</label>
-      <div className="form-floating">
-        <textarea
-          className="form"
-          type="about "
-          placeholder=""
-          value={inputData?.about}
-          onChange={handleChange}
-          name="about"
-          id="floatingTextarea2"
-          style={{ height: "100px", width: "75%" }}
-        ></textarea>
-        {/* <label htmlFor="floatingTextarea2">Описание</label> */}
-      </div>
+      <TasksHeader />
+      {...decodedAbout}
       <br />
       <label htmlFor="floatingTextarea2">Счёт</label>
       <div className="input-group">

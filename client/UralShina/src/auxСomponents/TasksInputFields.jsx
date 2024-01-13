@@ -11,13 +11,13 @@ import NumberPicker from "react-widgets/NumberPicker";
 import DropdownList from "react-widgets/DropdownList";
 import "react-widgets/styles.css";
 
-export const InputFields = (props) => {
+export const TasksInputFields = (props) => {
   return (
     <div>
       <form className="row g-3">
         <div className="col-md-5">
           <input
-            value={props.data.formData[props.name].title}
+            value={props.data[props.name].title}
             name="title"
             type="text"
             className="form-control"
@@ -30,7 +30,7 @@ export const InputFields = (props) => {
         <div className="col-md-2">
           <DropdownList
             defaultValue="см"
-            value={props.data.formData[props.name].units}
+            value={props.data[props.name].units}
             data={["мм", "см", "м", "км"]}
             onChange={(el) =>
               props.chenge(
@@ -44,7 +44,7 @@ export const InputFields = (props) => {
         </div>
         <div className="col-md-2">
           <NumberPicker
-            value={props.data.formData[props.name].quantity}
+            value={props.data[props.name].quantity}
             defaultValue={0}
             step={10}
             onChange={(el) =>
@@ -60,7 +60,7 @@ export const InputFields = (props) => {
         <div className="col-md-2">
           <DatePicker
             dateFormat={"yyy/MM/dd"}
-            selected={props.data.formData[props.name].deadline}
+            selected={props.data[props.name].deadline}
             onChange={(n) =>
               props.chenge(
                 {

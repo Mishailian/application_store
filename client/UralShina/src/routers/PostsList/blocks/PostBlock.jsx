@@ -1,15 +1,27 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
 import { staticApi, getUsersTable } from "../../../static/static";
-import { useDeletePostMutation } from "../../../app/api/apiSlice";
+import {
+  useDeletePostMutation,
+  useChengePostMutation,
+} from "../../../app/api/apiSlice";
 import { useSelector } from "react-redux";
+import { chooseBlock } from "../../../auxСomponents/ChooseBlock";
 
 export const PostBlock = (props) => {
+  // console.log(getUsersTable());
+
+  var [chng] = useChengePostMutation();
+
+  var callback = (initialState) =>
+    chng({ initialState: { executor: initialState }, postId: props.data.id });
+
+  var { result, chengeState } = chooseBlock(getUsersTable(), callback);
   const [del, {}] = useDeletePostMutation();
   const is_superuser = useSelector((state) => state.auth.is_superuser);
   var s = staticApi();
   var executor = getUsersTable()?.[props.data.executor];
-
+  console.log();
   const dellete = async () => {
     await del(props.data.id);
   };
@@ -34,10 +46,14 @@ export const PostBlock = (props) => {
           {/* Executor как простой текст */}
           <div className="ml-2">
             <p className="text-info">
-              {props.data.executor !== null && props.data.executor !== undefined
-                ? executor
-                : "undefined"}
+              {props.data.executor !== null &&
+              props.data.executor !== undefined ? (
+                <div onClick={chengeState}>{executor}</div>
+              ) : (
+                "undefined"
+              )}
             </p>
+            {result}
           </div>
         </div>
       </div>

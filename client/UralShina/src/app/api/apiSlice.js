@@ -67,11 +67,14 @@ export const apiSlice = createApi({
       }),
     }),
     chengePost: builder.mutation({
-      query: ({ initialState, postId }) => ({
-        url: `/store/${postId}/`,
-        method: "PUT",
-        body: initialState,
-      }),
+      query: ({ initialState, postId }) => {
+        console.log({ body: initialState });
+        return {
+          url: `/store/${postId}/`,
+          method: "PATCH",
+          body: initialState,
+        };
+      },
     }),
 
     authentication: builder.mutation({

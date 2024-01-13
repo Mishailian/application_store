@@ -12,8 +12,8 @@ export const PostsList = () => {
   });
   return (
     <div>
-      <div>{content}</div>
       {fillter}
+      <div>{content}</div>
     </div>
   );
 };

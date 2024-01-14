@@ -46,12 +46,7 @@ export const PostBlock = (props) => {
           {/* Executor как простой текст */}
           <div className="ml-2">
             <p className="text-info">
-              {props.data.executor !== null &&
-              props.data.executor !== undefined ? (
-                <div onClick={chengeState}>{executor}</div>
-              ) : (
-                "undefined"
-              )}
+              {<div onClick={chengeState}>{executor ?? "❌"}</div>}
             </p>
             {result}
           </div>

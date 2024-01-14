@@ -24,14 +24,14 @@ class Temporary_storage(models.Model):
     #custom id dnt touch
     id = models.AutoField(primary_key=True, unique=True)
     name = models.CharField(max_length=255)
-    about = models.TextField(max_length=255, null=True)
     price_id = models.TextField(max_length=255, null=True, blank=True)
     date_create = models.DateField(auto_now_add=True)
     data_dead_line = models.DateField(null=True)
     data_update = models.DateField(auto_now=True)
-    tags = models.ManyToManyField('Tag_post', related_name='tags', blank=True)
-    executor = models.ForeignKey('Executor', on_delete=models.PROTECT, null=True)
+    about = models.JSONField(null=True, blank=True)
     author = models.ForeignKey('Author', on_delete=models.PROTECT, null=True)
+    executor = models.ForeignKey('Executor', on_delete=models.PROTECT, null=True)
+    tags = models.ManyToManyField('Tag_post', related_name='tags', blank=True)
 
     class Meta:
         ordering = ['-date_create']
@@ -56,6 +56,9 @@ class Temporary_storage(models.Model):
         Free_id.objects.create(name=model_name, free_id=freed_id)
     def __str__(self):
         return self.name if self.name else f'Temporary_storage {self.id}'
+
+class Archive(models.Model):
+    ...    
 
 
 class Tag_post(models.Model):

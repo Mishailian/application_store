@@ -99,7 +99,7 @@ export const apiSlice = createApi({
       query: ({ initialState }) => {
         console.log(initialState);
         return {
-          url: "/store/",
+          url: "/undeclared/",
           body: initialState,
           method: "POST",
         };

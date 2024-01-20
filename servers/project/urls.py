@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
-from temporary_storage.views import Temporary_storage_api, Tags_view_set, Users_view
+from temporary_storage.views import Temporary_storage_api, Undeclared_temporary_storage_api, Tags_view_set, Users_view, Archive_api
 from temporary_storage.views import ObtainTokenView
 
 from allauth.account.views import LoginView, LogoutView
@@ -26,9 +26,10 @@ from allauth.account.views import LoginView, LogoutView
 
 router = DefaultRouter()
 router.register(r'store', Temporary_storage_api, basename='store')
+router.register(r'undeclared', Undeclared_temporary_storage_api)
+router.register(r'archive', Archive_api)
 router.register(r'tags', Tags_view_set)
 router.register(r'users', Users_view)
-
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -36,4 +37,6 @@ urlpatterns = [
     path('api/v1/', include(router.urls)),
     path('api/v1/token/', ObtainTokenView.as_view(), name='obtain-token'),
     path('api/v1/store/', Temporary_storage_api.as_view({'get': 'list'}), name='store-list'),
+    path('api/v1/archived/', Archive_api.as_view({'get': 'list'}), name='archived_store-list'),
+    path('api/v1/undeclared/', Undeclared_temporary_storage_api.as_view({'get': 'list'}), name='undeclared_store-list'),
 ]

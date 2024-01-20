@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from .models import Temporary_storage, Tag_post, Author, Executor
-from .serializers import Temporary_storage_serializer, Tag_serializer, Users_serializer
+from .models import Temporary_storage, Tag_post, Author, Archive, Executor, Undeclared_temporary_storage
+from .serializers import Temporary_storage_serializer, Tag_serializer, Users_serializer, Undeclared_temporary_storage_serializer, Archive_serializer
 
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.response import Response
@@ -10,6 +10,8 @@ from django.contrib.auth.models import Group
 
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
+
+from django.http import Http404
 
 class Temporary_storage_api(viewsets.ModelViewSet):
     queryset = Temporary_storage.objects.all()
@@ -37,6 +39,30 @@ class Temporary_storage_api(viewsets.ModelViewSet):
 
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
+
+
+class Undeclared_temporary_storage_api(viewsets.ModelViewSet):
+    queryset = Undeclared_temporary_storage.objects.all()
+    serializer_class = Undeclared_temporary_storage_serializer
+    lookup_field = 'pk'
+    def list(self, request, *args, **kwargs):
+        declared_id_param = self.request.query_params.get('declared')
+        if declared_id_param:
+            try:
+                declared_id_param = int(declared_id_param)
+                Undeclared_temporary_storage.declared(declared_id_param)
+            except ValueError:
+                raise Http404()
+            
+        queryset = Undeclared_temporary_storage.objects.all()
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+
+
+class Archive_api(viewsets.ModelViewSet):
+    queryset = Archive.objects.all()
+    serializer_class = Archive_serializer
+    lookup_field = 'pk'
 
 
 class Tags_view_set(viewsets.ModelViewSet):

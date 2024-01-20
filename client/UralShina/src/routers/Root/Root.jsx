@@ -51,6 +51,24 @@ export const Root = () => {
               <li>
                 <button
                   onClick={() => {
+                    navigate(s.paths.undeclaredPosts);
+                  }}
+                >
+                  {s.names.undeclaredPosts}
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => {
+                    navigate(s.paths.arhive);
+                  }}
+                >
+                  {s.names.arhive}
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => {
                     navigate(s.paths.posts);
                   }}
                 >

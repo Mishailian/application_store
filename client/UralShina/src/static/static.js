@@ -7,6 +7,8 @@ export var staticApi = () => {
     paths: {
       users: "/users/",
       posts: "/store/",
+      undeclaredPosts: "/undeclared/",
+      arhive: "/archived/",
       auth: "/auth/",
       addPost: "/addPost/",
       addUser: "/addUser/",
@@ -14,6 +16,8 @@ export var staticApi = () => {
     },
     names: {
       posts: "posts",
+      arhive: "arhive",
+      undeclaredPosts: "udeclared",
       users: "users",
       auth: "authorisation",
       addPost: "addPost",
@@ -24,11 +28,8 @@ export var staticApi = () => {
       addPost: {
         name: "asd",
         about: null,
-        price_id: "",
         data_dead_line: null,
-        executor: null,
         author: username_id,
-        tags: [],
       },
       addPosition: {
         title: "",

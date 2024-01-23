@@ -56,23 +56,28 @@ class Undeclared_temporary_storage(Base_Temporary_storage):
         try:
             # Get the Undeclared_temporary_storage instance with the given pk
             obj = cls.objects.get(pk=pk)
-
             # Convert the instance to a dictionary
             obj_data = model_to_dict(obj)
 
             # Exclude the 'id' field from the dictionary
             obj_data = model_to_dict(
-                obj, exclude=['id', 'base_temporary_storage_ptr', 'price_id','tags']
+                obj, exclude=['id', 'base_temporary_storage_ptr', 'price_id','tags','executor']
             )
 
             # Handle the ImageField separately
-            obj_data['price_id'] = obj.price_id
-            print(obj_data)
+            # obj_data['price_id'] = obj.price_id
+            # print(Author.objects.get(id=1))
             # Create a new instance in Temporary_storage using the dictionary data
+            author_id = obj_data['author']
+            if author_id:
+                obj_data['author'] = Author.objects.get(id=author_id)
+            # print(obj_data)
             Temporary_storage.objects.create(**obj_data)
+            print('all OK')
             obj.delete()
 
         except Exception as e:
+            print(e)
             raise Http404()
 
 

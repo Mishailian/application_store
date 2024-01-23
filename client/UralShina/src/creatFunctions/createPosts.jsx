@@ -3,6 +3,7 @@ import {
   filterByCondition,
 } from "./filterFunctions/filterFunctions";
 import { PostBlock } from "../routers/PostsList/blocks/PostBlock";
+import { UndeclaretedPostBlock } from "../routers/UndeclaretedList/blocks/UndeclaretedPostBlock";
 
 const postsFilter = (posts, filter) => {
   console.log(posts);
@@ -26,4 +27,10 @@ export const createPosts = (posts, fillter) => {
     posts = postsFilter(posts, fillter);
   }
   return posts.map((post) => <PostBlock data={post} key={post.id} />);
+};
+
+export var createUndeclaretedPosts = (posts, fillter) => {
+  return posts.map((post) => (
+    <UndeclaretedPostBlock data={post} key={post.id} />
+  ));
 };

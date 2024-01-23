@@ -13,12 +13,22 @@ import { AddPost } from "./routers/Post/AddPost";
 import { AddUser } from "./routers/User/AddUser";
 import { UserPage } from "./routers/User/UserPage";
 import { TagList } from "./routers/Tags/TagList";
+import { UndeclaretedList } from "./routers/UndeclaretedList/UndeclaretedList";
+import { ArchiveList } from "./routers/ArchiveList/ArchiveList";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
     children: [
+      {
+        path: "/undeclared",
+        element: <UndeclaretedList />,
+      },
+      {
+        path: "/archived",
+        element: <ArchiveList />,
+      },
       {
         path: "/store",
         element: <PostsList />,

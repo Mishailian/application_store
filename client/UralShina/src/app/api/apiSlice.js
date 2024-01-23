@@ -25,8 +25,14 @@ export const apiSlice = createApi({
     credentials: "include",
   }),
   endpoints: (builder) => ({
+    getArhive: builder.query({
+      query: () => "/archive/",
+    }),
     getPosts: builder.query({
       query: () => "/store/",
+    }),
+    getUndeclaredPosts: builder.query({
+      query: () => "/undeclared/",
     }),
     getPost: builder.query({
       query: ({ postId }) => ({
@@ -59,6 +65,12 @@ export const apiSlice = createApi({
       query: () => "/tags/",
     }),
 
+    declaredPost: builder.mutation({
+      query: ({ postId }) => ({
+        url: `/undeclared/?declared=${postId}`,
+        method: "GET",
+      }),
+    }),
     chengeTag: builder.mutation({
       query: ({ initialState, tagId }) => ({
         url: `/tags/${tagId}/`,
@@ -116,13 +128,16 @@ export const apiSlice = createApi({
 });
 
 export const {
+  useGetArhiveQuery,
   useAuthenticationMutation,
   useGetPostsQuery,
+  useGetUndeclaredPostsQuery,
   useGetUsersQuery,
   useGetUserQuery,
   useGetUsersDBQuery,
   useGetPostQuery,
   useGetTagsQuery,
+  useDeclaredPostMutation,
   useChengeTagMutation,
   useGetFilterPostsQuery,
   useChengePostMutation,

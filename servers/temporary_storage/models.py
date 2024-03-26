@@ -6,7 +6,7 @@ from django.forms.models import model_to_dict
 
 class Tag_post(models.Model):
     name = models.CharField(max_length=100, unique=True)
-    
+
     def __str__(self) -> str:
         return self.name
 
@@ -19,14 +19,15 @@ class Executor(models.Model):
 
 
 class Author(models.Model):
+
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=75, unique=True)
-    
+    name = models.CharField(max_length=75, primary_key=True)
+
     def __str__(self) -> str:
         return self.name
 
 
-#main class 
+# main class
 class Base_Temporary_storage(models.Model):
     name = models.CharField(max_length=255)
     price_id = models.ImageField(null=True, blank=True)
@@ -61,16 +62,17 @@ class Undeclared_temporary_storage(Base_Temporary_storage):
 
             # Exclude the 'id' field from the dictionary
             obj_data = model_to_dict(
-                obj, exclude=['id', 'base_temporary_storage_ptr', 'price_id','tags','executor']
+                obj, exclude=['id', 'base_temporary_storage_ptr',
+                              'price_id', 'tags', 'executor']
             )
 
             # Handle the ImageField separately
             # obj_data['price_id'] = obj.price_id
             # print(Author.objects.get(id=1))
             # Create a new instance in Temporary_storage using the dictionary data
-            author_id = obj_data['author']
-            if author_id:
-                obj_data['author'] = Author.objects.get(id=author_id)
+            author = obj_data['author']
+            if author:
+                obj_data['author'] = Author.objects.get(name=author)
             # print(obj_data)
             Temporary_storage.objects.create(**obj_data)
             print('all OK')
@@ -86,4 +88,3 @@ class Archive(Base_Temporary_storage):
 
     def dearchivete(pk):
         print(f'pk---{pk}-')
-

@@ -36,7 +36,10 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('api/v1/', include(router.urls)),
     path('api/v1/token/', ObtainTokenView.as_view(), name='obtain-token'),
-    path('api/v1/store/', Temporary_storage_api.as_view({'get': 'list'}), name='store-list'),
-    path('api/v1/archived/', Archive_api.as_view({'get': 'list'}), name='archived_store-list'),
-    path('api/v1/undeclared/', Undeclared_temporary_storage_api.as_view({'get': 'list'}), name='undeclared_store-list'),
+    path('api/v1/store/',
+         Temporary_storage_api.as_view({'get': 'list'}), name='store-list'),
+    path('api/v1/archived/',
+         Archive_api.as_view({'get': 'list'}), name='archived_store-list'),
+    path('api/v1/undeclared/', Undeclared_temporary_storage_api.as_view(
+        {'get': 'list'}), name='undeclared_store-list'),
 ]

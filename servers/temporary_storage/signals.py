@@ -5,6 +5,7 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.models import User
 from .models import Author
 
+
 @receiver(user_signed_up)
 def user_signed_up_halder(request, user, **kwargs):
     username = user.username
@@ -15,7 +16,8 @@ def user_signed_up_halder(request, user, **kwargs):
         user.is_superuser = True
         user.save()
     else:
-        temporary_storage_managers_group, created = Group.objects.get_or_create(name='Temporary Storage Managers')
+        temporary_storage_managers_group, created = Group.objects.get_or_create(
+            name='Temporary Storage Managers')
         user.groups.add(temporary_storage_managers_group)
 
 
@@ -27,4 +29,3 @@ def save_author_profile(sender, instance, created, **kwargs):
         Author.objects.create(user=instance, name=instance.username)
     else:
         instance.author.save()
-

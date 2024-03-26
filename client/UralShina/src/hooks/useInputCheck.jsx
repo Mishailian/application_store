@@ -5,6 +5,7 @@ export const useInputCheck = () => {
 
   const setData = (formData, data = null, canRepeat = false) => {
     if (Object.keys(inputData).length === 0 || canRepeat) {
+      console.log(inputData);
       var obj = { formData };
       if (data) {
         obj.additionalData = data;
@@ -47,11 +48,11 @@ export const useInputCheck = () => {
     else {
       obj.formData = { ...obj.formData, [name]: value };
     }
+    console.log(obj);
     setFormData(obj);
   };
 
   const handleSubmit = async (callback) => {
-    debugger;
     try {
       let resultData;
       if (inputData.additionalData !== undefined)
@@ -76,5 +77,6 @@ export const useInputCheck = () => {
     handleSubmit,
     setData,
     resetData,
+    clearInput,
   };
 };

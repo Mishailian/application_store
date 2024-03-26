@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { FilterJsx } from "../app/AuxiliaryComponents/FilterJsx";
+import { filterByCondition } from "../../creatFunctions/filterFunctions/filterFunctions";
+import { FilterJsx } from "../../app/AuxiliaryComponents/FilterJsx";
 
 export const useFilter = (mode) => {
   const [isrevers, setrevers] = useState({ reverse: false });
@@ -11,7 +12,6 @@ export const useFilter = (mode) => {
     setrevers(!isrevers);
   };
   const handleSwitch = (e) => {
-    console.log(e.target);
     const { name, value } = e.target;
     setswithcer(() => ({
       [name]: value === "on" ? null : "on",
@@ -27,14 +27,25 @@ export const useFilter = (mode) => {
     }));
   };
 
+  var filterConfig = {
+    isFilter: true,
+    filterMetod: "sort",
+    filterAim: getfilterAim,
+    reverse: isrevers,
+  };
+  var fillter = (object) => {
+    if (object === undefined) return;
+
+    filterConfig.filterAim &&
+      (object = filterByCondition(object, Object.keys(filterConfig.filterAim)));
+
+    filterConfig.reverse ? (object = [...object].reverse()) : object;
+    return object;
+  };
+
   return {
-    filterConfig: {
-      isFilter: true,
-      filterMetod: "sort",
-      filterAim: getfilterAim,
-      reverse: isrevers,
-    },
-    fillter: (
+    fillter,
+    fillterJsx: (
       <FilterJsx
         mode={mode}
         isOn={isOn}

@@ -7,8 +7,8 @@ import { setToken } from "../../app/auth/authSlice";
 import { Login } from "../../app/auth/Login";
 
 export const Root = () => {
+  var result;
   var s = staticApi();
-  // надо оптемезировать внизу а то диспачим постоянно при любом ножатии
   const token = useSelector((state) => state.auth.token);
   const isAuth = useSelector((state) => state.auth.isAuth);
   const username = useSelector((state) => state.auth.username);
@@ -27,7 +27,26 @@ export const Root = () => {
   }, [isTokenValid]);
 
   if (isAuth) {
-    return (
+    var list_of_routers = () => {
+      var result = [];
+      var objscts = Object.keys(s.paths);
+      var route;
+      for (var key in objscts) {
+        route = objscts[key];
+        var handleleClick = ((r) => () => {
+          navigate(r);
+        })(s.paths[route]);
+
+        result.push(
+          <li>
+            <button onClick={handleleClick}>{s.names[route]}</button>
+          </li>
+        );
+      }
+      return result;
+    };
+
+    result = (
       <>
         <div id="sidebar">
           <div>
@@ -47,62 +66,7 @@ export const Root = () => {
             </form>
           </div>
           <nav>
-            <ul>
-              <li>
-                <button
-                  onClick={() => {
-                    navigate(s.paths.undeclaredPosts);
-                  }}
-                >
-                  {s.names.undeclaredPosts}
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => {
-                    navigate(s.paths.arhive);
-                  }}
-                >
-                  {s.names.arhive}
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => {
-                    navigate(s.paths.posts);
-                  }}
-                >
-                  {s.names.posts}
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => {
-                    navigate(s.paths.users);
-                  }}
-                >
-                  {s.names.users}
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => {
-                    navigate(s.paths.addPost);
-                  }}
-                >
-                  {s.names.addPost}
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => {
-                    navigate(s.paths.tagList);
-                  }}
-                >
-                  {s.names.tagList}
-                </button>
-              </li>
-            </ul>
+            <ul>{...list_of_routers()}</ul>
           </nav>
           <h1 onClick={() => navigate(s.paths.auth)}>{username}</h1>
         </div>
@@ -112,6 +76,7 @@ export const Root = () => {
       </>
     );
   } else {
-    return <Login />;
+    result = <Login />;
   }
+  return result;
 };

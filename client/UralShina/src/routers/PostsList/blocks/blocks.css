@@ -1,26 +1,22 @@
-
-
-
 /* blockPosts */
 .postBlock {
-    display: grid;
-    grid-template-columns: auto 1fr; /* Создаем две колонки, первая автоматической ширины, вторая занимает оставшееся пространство */
-    gap: 10px; /* Пример отступа между строками */
-    width: 300px;
-    border: 1px solid #ccc;
-    padding: 10px;
-  }
-  
-  .postTableRow {
-    display: contents; /* Разрешает дочерним элементам принимать свой собственный display */
-  }
-  
-  .postTableLabelCell {
-    font-weight: bold;
-  }
-  
-  .postTableCell {
-    border: 1px solid #ddd;
-    padding: 8px;
-  }
-  
+  display: grid;
+  grid-template-columns: auto 1fr; /* Создаем две колонки, первая автоматической ширины, вторая занимает оставшееся пространство */
+  gap: 10px; /* Пример отступа между строками */
+  width: 300px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.postTableRow {
+  display: contents; /* Разрешает дочерним элементам принимать свой собственный display */
+}
+
+.postTableLabelCell {
+  font-weight: bold;
+}
+
+.postTableCell {
+  border: 1px solid #ddd;
+  padding: 8px;
+}

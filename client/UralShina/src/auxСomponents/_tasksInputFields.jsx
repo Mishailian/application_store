@@ -8,16 +8,18 @@
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import NumberPicker from "react-widgets/NumberPicker";
-import DropdownList from "react-widgets/DropdownList";
+import Combobox from "react-widgets/Combobox";
 import "react-widgets/styles.css";
 
-export const TasksInputFields = (props) => {
+export const _tasksInputFields = (props) => {
   return (
     <div>
       <form className="row g-3">
         <div className="col-md-5">
           <input
             value={props.data[props.name].title}
+            onFocus={() => console.log("focus")}
+            onBlur={() => console.log("blure")}
             name="title"
             type="text"
             className="form-control"
@@ -28,18 +30,21 @@ export const TasksInputFields = (props) => {
           />
         </div>
         <div className="col-md-2">
-          <DropdownList
-            defaultValue="см"
+          <Combobox
+            // allowCreate={true}
+            // autoComplete="on"
+
             value={props.data[props.name].units}
             data={["мм", "см", "м", "км"]}
-            onChange={(el) =>
+            onChange={(el) => {
+              console.log(el);
               props.chenge(
                 {
                   units: el,
                 },
                 props.name
-              )
-            }
+              );
+            }}
           />
         </div>
         <div className="col-md-2">
@@ -81,6 +86,17 @@ export const TasksInputFields = (props) => {
             del
           </button>
         </div>
+        <input
+          placeholder="about"
+          onChange={(n) =>
+            props.chenge(
+              {
+                about: n.target.value,
+              },
+              props.name
+            )
+          }
+        />
       </form>
       <br></br>
     </div>

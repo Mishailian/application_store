@@ -5,10 +5,12 @@ import { setToken } from "./authSlice";
 import { setUsers } from "./usesSlice";
 import { setTags } from "./tagsSlice";
 import { useGetUsersDBQuery } from "../api/apiSlice";
-import { useProgressCheck } from "../../hooks/useProgressCheck";
+import { progressCheck } from "../../progressCheck";
+import { useUpdateUsersTable } from "../../static/static";
 
 export const Login = () => {
   const authToken = useSelector((state) => state.auth.token);
+  var updateUsersTable = useUpdateUsersTable();
   const dispatch = useDispatch();
   const [credentials, setCredentials] = useState({
     username: "",
@@ -36,8 +38,8 @@ export const Login = () => {
           })
         );
 
-        const users = useProgressCheck(obj, { callBack: setUsersDataBase });
-        console.log(users);
+        const users = progressCheck(obj, setUsersDataBase);
+        updateUsersTable(users);
       } else {
         console.error(error);
       }

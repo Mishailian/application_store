@@ -1,5 +1,7 @@
-import { useState, useEffect, useSyncExternalStore } from "react";
-import { useInputCheck } from "./useInputCheck";
+import { filterField } from "./filterField";
+import { getPrevObject } from "./getPrevObject";
+import { useState, useEffect } from "react";
+import { useInputCheck } from "../useInputCheck";
 // {`position${count}`: {
 //    title: '',
 //    p: '',
@@ -16,32 +18,16 @@ export const useAddField = (fieldStructure, Component) => {
     setData,
     resetData,
   } = useInputCheck();
-  var prevObject = () => {
-    var lastObject = 0;
-    if (data.length > 0) lastObject = data.length - 1;
 
-    var prevData;
-    if (formData.formData?.[lastObject])
-      prevData = structuredClone(formData.formData?.[lastObject]);
-
-    return prevData;
-  };
-  var deleteField = (id) => {
-    var obj = data.filter((ob) => {
-      if (ob.id === id) {
-        return false;
-      }
-      return ob;
-    });
-    var newObj = Object.fromEntries(
-      Object.entries(formData.formData).filter(([key, value]) => key != id)
-    );
+  var deleteField = () => {
+    var [obj, newObj] = filterField(id, data, formData);
     resetData();
     setData({ ...newObj }, null, true);
     setLocalData(obj);
   };
+
   var addField = () => {
-    var obj = prevObject();
+    var obj = getPrevObject(data, formData);
     console.log(formData);
     var lastId = data[data.length - 1]?.id ?? -1;
     setData(
@@ -51,19 +37,18 @@ export const useAddField = (fieldStructure, Component) => {
     );
     setLocalData([...data, { id: lastId + 1 }]);
   };
-  var checkInputs = () => {
-    var corectIndex = data.length - 1;
-    corectIndex >= 0
-      ? console.log(Object.keys(formData.formData?.[corectIndex]))
-      : null;
-  };
-  var chenge = (data, addData) => {
-    handleChange(data, addData);
-  };
+
+  // var checkInputs = () => {
+  //   var corectIndex = data.length - 1;
+  //   corectIndex >= 0
+  //     ? console.log(Object.keys(formData.formData?.[corectIndex]))
+  //     : null;
+  // };
+
   var result = data.map((ob) => (
     <div>
       <Component
-        chenge={chenge}
+        chenge={handleChange}
         del={deleteField}
         data={formData.formData}
         name={ob.id}

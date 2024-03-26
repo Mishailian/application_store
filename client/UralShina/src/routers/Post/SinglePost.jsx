@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useInputCheck } from "../../hooks/useInputCheck";
-import { useProgressCheck } from "../../hooks/useProgressCheck";
+import { progressCheck } from "../../progressCheck";
 import { SinglePostBlock } from "../PostsList/blocks/SinglePostBlock";
 import { useChengePostMutation, useGetPostQuery } from "../../app/api/apiSlice";
 
@@ -12,19 +12,17 @@ export const SinglePost = () => {
   const { postId } = useParams();
   const postObject = useGetPostQuery({ postId });
   const [chPost] = useChengePostMutation();
-  const content = useProgressCheck(
+  const content = progressCheck(
     { ...postObject, data: { ...postObject.data, is_superuser, postId } },
-    {
-      callBack: (data) => {
-        return (
-          <SinglePostBlock
-            data={data}
-            localState={[inputData, setFormData]}
-            chPost={chPost}
-            obj={{ handleChange, handleSubmit, setData }}
-          />
-        );
-      },
+    (data) => {
+      return (
+        <SinglePostBlock
+          data={data}
+          localState={[inputData, setFormData]}
+          chPost={chPost}
+          obj={{ handleChange, handleSubmit, setData }}
+        />
+      );
     }
   );
   return <div>{content}</div>;

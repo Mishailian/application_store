@@ -1,43 +1,42 @@
-import { useAddField } from "../../hooks/useAddField";
+import { useAddField } from "../../hooks/useAddField/useAddField";
 import { useInputCheck } from "../../hooks/useInputCheck";
 import { useAddPostMutation } from "../../app/api/apiSlice";
-import { TasksInputFields } from "../../auxСomponents/TasksInputFields";
-import { staticApi, getUsersTable } from "../../static/static";
+import { staticApi } from "../../static/static";
 import { TasksHeader } from "../../forms/tasksHeader";
+import { useEffect, useState } from "react";
+import { _tasksInputFields } from "../../auxСomponents/_tasksInputFields";
 
 export const AddPost = () => {
+  const [isSubmite, setSubmite] = useState(false);
   var s = staticApi();
   const [postObj] = useAddPostMutation();
   const { formData, handleChange, handleSubmit, setData } = useInputCheck();
   var { component, componentData } = useAddField(
     s.structure.addPosition,
-    TasksInputFields
+    s.structure.tasksInputFields
   );
-  const submite = () => {
-    var about = JSON.stringify(componentData.formData);
-    handleChange({ about: about });
-  };
-  setData(s.structure.addPost);
+  useEffect(() => {
+    setData(s.structure.addPost);
+  }, []);
+
+  useEffect(() => {
+    isSubmite && handleSubmit(postObj);
+  }, [isSubmite]);
+
   return (
     <div>
       <h1>служебная записка</h1>
       <TasksHeader />
       {component}
       <button
+        data-testid="AddPostSubmite"
         onClick={() => {
-          submite();
+          handleChange({ about: JSON.stringify(componentData.formData) });
+          setSubmite(true);
         }}
       >
-        нажми на меня
+        добавить пост
       </button>{" "}
-      <button
-        onClick={() => {
-          console.log(formData);
-          handleSubmit(postObj);
-        }}
-      >
-        нажми на меня
-      </button>
     </div>
   );
 };

@@ -9,7 +9,7 @@ export const AddUser = () => {
           aria-label="First name"
         />
       </div>
-      <div class="col">
+      <div class="col" data-testid="AddUserLastName">
         <input
           type="text"
           className="form-control"

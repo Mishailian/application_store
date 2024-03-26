@@ -24,26 +24,45 @@ export const apiSlice = createApi({
     },
     credentials: "include",
   }),
+  tagTypes: ["POSTS", "POST", "USESRS", "USER", "UNDECLARED"],
   endpoints: (builder) => ({
     getArhive: builder.query({
       query: () => "/archive/",
     }),
     getPosts: builder.query({
-      query: () => "/store/",
+      providesTags: ["POSTS"],
+      query: ({ page }) => {
+        page = page ?? "";
+        let url = "/store/";
+        if (page) url = url + `?page=${page}`;
+
+        return {
+          url: url,
+          method: "Get",
+        };
+      },
+    }),
+    getPostsCount: builder.query({
+      providesTags: ["POSTS"],
+      query: () => "/store/?count=1",
     }),
     getUndeclaredPosts: builder.query({
+      providesTags: ["UNDECLARED"],
       query: () => "/undeclared/",
     }),
     getPost: builder.query({
+      providesTags: ["POST"],
       query: ({ postId }) => ({
         url: `/store/${postId}/`,
         method: "GET",
       }),
     }),
     getUsers: builder.query({
+      providesTags: ["USERS"],
       query: () => "/users/",
     }),
     getUser: builder.query({
+      providesTags: ["USER"],
       query: (userId) => ({
         url: `/users/${userId}/`,
         method: "GET",
@@ -56,6 +75,7 @@ export const apiSlice = createApi({
       }),
     }),
     getFilterPosts: builder.query({
+      providesTags: ["POSTS"],
       query: (params) => ({
         url: `/store/?${buildQueryParams(params)}`,
         method: "GET",
@@ -66,6 +86,7 @@ export const apiSlice = createApi({
     }),
 
     declaredPost: builder.mutation({
+      invalidatesTags: ["POSTS", "UNDECLARED"],
       query: ({ postId }) => ({
         url: `/undeclared/?declared=${postId}`,
         method: "GET",
@@ -79,6 +100,7 @@ export const apiSlice = createApi({
       }),
     }),
     chengePost: builder.mutation({
+      invalidatesTags: ["POST", "POSTS"],
       query: ({ initialState, postId }) => {
         console.log({ body: initialState });
         return {
@@ -101,6 +123,7 @@ export const apiSlice = createApi({
       query: (tagId) => ({ url: `/tags/${tagId}/`, method: "DELETE" }),
     }),
     deletePost: builder.mutation({
+      invalidatesTags: ["POSTS"],
       query: (postId) => ({
         url: `/store/${postId}/`,
         method: "DELETE",
@@ -108,6 +131,7 @@ export const apiSlice = createApi({
     }),
 
     addPost: builder.mutation({
+      invalidatesTags: ["UNDECLARED"],
       query: ({ initialState }) => {
         console.log(initialState);
         return {
@@ -131,6 +155,7 @@ export const {
   useGetArhiveQuery,
   useAuthenticationMutation,
   useGetPostsQuery,
+  useGetPostsCountQuery,
   useGetUndeclaredPostsQuery,
   useGetUsersQuery,
   useGetUserQuery,

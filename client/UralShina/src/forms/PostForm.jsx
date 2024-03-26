@@ -1,7 +1,7 @@
 export var PostForm = (props) => {
   return (
     <>
-      <div className={`card w-50`}>
+      <div className={`card w-50`} data-testid="PostForm">
         <div className="card-body d-flex justify-content-start">
           {/* main block */}
           <div className="flex-grow-1">

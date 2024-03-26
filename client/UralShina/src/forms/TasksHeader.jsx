@@ -1,6 +1,6 @@
 export var TasksHeader = () => {
   return (
-    <div>
+    <div data-testid="TasksHeader">
       <div>
         <form className="row g-3">
           <div className="col-md-5">

@@ -11,7 +11,7 @@ export const TagBlock = (props) => {
   const tagId = props.tag.id;
   const obj = { name: "" };
   const [isChenge, setChenge] = useState(false);
-  const [del, {}] = useDeleteTagMutation();
+  const [del] = useDeleteTagMutation();
   const dellete = async () => await del(props.tag.id);
   const { inputData, handleChange, handleSubmit, setData } = useInputCheck();
 
@@ -36,6 +36,7 @@ export const TagBlock = (props) => {
               onChange={handleChange}
             />
             <button
+              data-testid="TagBlockSubmite"
               className="btn btn-outline-secondary"
               type="button"
               onClick={() => {

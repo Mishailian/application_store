@@ -6,7 +6,11 @@ export const AddTag = () => {
   const { inputData, handleChange, handleSubmit } = useInputCheck();
   const submite = () => handleSubmit(tagObj);
   return (
-    <div className="input-group mb-3" style={{ width: "25%" }}>
+    <div
+      data-testid="AddTag"
+      className="input-group mb-3"
+      style={{ width: "25%" }}
+    >
       <input
         type="text"
         name="name"
@@ -22,6 +26,7 @@ export const AddTag = () => {
         type="button"
         id="button-addon2"
         onClick={submite}
+        data-testid="AddTagButton"
       >
         Добавить
       </button>

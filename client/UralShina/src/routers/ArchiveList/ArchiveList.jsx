@@ -1,13 +1,13 @@
-import { useFilter } from "../../hooks/useFilter";
 import { useGetArhiveQuery } from "../../app/api/apiSlice";
-import { createPosts } from "../../creatFunctions/createPosts";
-import { useProgressCheck } from "../../hooks/useProgressCheck";
+import { createObjects } from "../../creatFunctions/createPosts";
+import { progressCheck } from "../../progressCheck";
+import { useFilter } from "../../hooks/useFilter/useFilter";
 
 export const ArchiveList = () => {
   const { filterConfig, fillter } = useFilter("PostsPage");
   const objPosts = useGetArhiveQuery();
-  const content = useProgressCheck(objPosts, {
-    callBack: createPosts,
+  const content = progressCheck(objPosts, {
+    callBack: createObjects,
     fillter: { ...filterConfig },
   });
   return (

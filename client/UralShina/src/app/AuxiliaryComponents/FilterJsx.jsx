@@ -1,5 +1,6 @@
 export const FilterJsx = (props) => {
   let tags = [];
+  // put this ↓ in staticApi and then too
   let elemlist = [
     ["дата создания", "date_create"],
     ["дата редоктирования", "data_update"],

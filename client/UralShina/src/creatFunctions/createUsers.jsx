@@ -1,22 +1,26 @@
 import { staticApi } from "../static/static";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { User } from "../routers/User/User";
+import { useSelector } from "react-redux";
 
 export const createUsers = (fillter) => {
-  const { users } = useSelector((state) => state.users);
+  const users = useSelector((state) => state.usersTable);
   const navigate = useNavigate();
+  var result = [];
   var s = staticApi();
-  return users.map((user) => (
-    <div key={user["id"]}>
-      <User userId={user["id"]} />
-      <button
-        onClick={() =>
-          navigate(`${s.paths.users}${user["id"]}/`, {
-            state: { name: user["name"] },
-          })
-        }
-      ></button>
-    </div>
-  ));
+
+  for (var [id, userName] of Object.entries(users)) {
+    var handleleClick = ((id) => () => {
+      navigate(`${id}/`, {
+        state: { name: userName },
+      });
+    })(id);
+    result.push(
+      <div key={id}>
+        <User userId={id} />
+        <button data-testid="user-list-button" onClick={handleleClick}></button>
+      </div>
+    );
+  }
+  return result;
 };

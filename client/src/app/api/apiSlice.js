@@ -58,7 +58,6 @@ export const apiSlice = createApi({
       }),
     }),
     getUsers: builder.query({
-      providesTags: ["USERS"],
       query: () => "/users/",
     }),
     getUser: builder.query({

@@ -3,14 +3,14 @@ import { createSlice } from "@reduxjs/toolkit";
 const tagsSlice = createSlice({
   name: "tags",
   initialState: {
-    tags: null,
+    tagsTable: null,
   },
   reducers: {
-    setTags: (state, action) => {
-      state.tags = action.payload;
+    setTagsTable: (state, action) => {
+      state.tagsTable = action.payload;
     },
   },
 });
 
-export const { setTags } = tagsSlice.actions;
+export const { setTagsTable } = tagsSlice.actions;
 export default tagsSlice.reducer;

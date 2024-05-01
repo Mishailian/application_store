@@ -2,11 +2,16 @@ import { AddTag } from "./AddTag";
 import { useGetTagsQuery } from "../../app/api/apiSlice";
 import { createTags } from "../../creatFunctions/createTags";
 import { progressCheck } from "../../progressCheck";
+import { setTagsTable } from "../../app/auth/tagsSlice";
+import { updateObjectsTable } from "../../static/static";
 
 export const TagList = () => {
-  const obj = useGetTagsQuery();
+  const tags = useGetTagsQuery();
+  var updateTagsTable = updateObjectsTable(setTagsTable);
   const callback = (tags) => createTags(tags);
-  const content = progressCheck(obj, callback);
+
+  progressCheck(tags, updateTagsTable);
+  const content = progressCheck(tags, callback);
   return (
     <div>
       <h1>tag list</h1>

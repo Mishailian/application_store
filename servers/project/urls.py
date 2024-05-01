@@ -21,8 +21,6 @@ from rest_framework.routers import DefaultRouter
 from temporary_storage.views import Temporary_storage_api, Undeclared_temporary_storage_api, Tags_view_set, Users_view, Archive_api
 from temporary_storage.views import ObtainTokenView
 
-from allauth.account.views import LoginView, LogoutView
-
 
 router = DefaultRouter()
 router.register(r'store', Temporary_storage_api, basename='store')

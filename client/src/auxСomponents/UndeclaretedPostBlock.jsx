@@ -1,6 +1,6 @@
-import { useDeclaredPostMutation } from "../../../app/api/apiSlice";
-import { staticApi } from "../../../static/static";
-import { PostForm } from "../../../forms/PostForm";
+import { useDeclaredPostMutation } from "../app/api/apiSlice";
+import { staticApi } from "../static/static";
+import { PostForm } from "../forms/PostForm";
 
 export var UndeclaretedPostBlock = (props) => {
   var [chng] = useDeclaredPostMutation();

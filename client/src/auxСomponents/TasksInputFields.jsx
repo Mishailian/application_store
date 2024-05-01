@@ -11,15 +11,14 @@ import NumberPicker from "react-widgets/NumberPicker";
 import Combobox from "react-widgets/Combobox";
 import "react-widgets/styles.css";
 
-export const _tasksInputFields = (props) => {
+export const TasksInputFields = (props) => {
+  console.log(props.data[props.name], "lllll");
   return (
     <div>
       <form className="row g-3">
         <div className="col-md-5">
           <input
             value={props.data[props.name].title}
-            onFocus={() => console.log("focus")}
-            onBlur={() => console.log("blure")}
             name="title"
             type="text"
             className="form-control"
@@ -65,7 +64,7 @@ export const _tasksInputFields = (props) => {
         <div className="col-md-2">
           <DatePicker
             dateFormat={"yyy/MM/dd"}
-            selected={props.data[props.name].deadline}
+            selected={new Date(props.data[props.name].deadline)}
             onChange={(n) =>
               props.chenge(
                 {
@@ -77,17 +76,19 @@ export const _tasksInputFields = (props) => {
           />
         </div>
         <div className="col-md-1">
+          {/*  -------------------  */}
           <button
             onClick={() => {
-              props.del(props.name);
+              props.eventFunc(props.name);
               event.preventDefault();
             }}
           >
-            del
+            {props.eventFuncName}
           </button>
         </div>
         <input
           placeholder="about"
+          value={props.data[props.name].about}
           onChange={(n) =>
             props.chenge(
               {

@@ -1,5 +1,5 @@
 import { useGetArhiveQuery } from "../../app/api/apiSlice";
-import { createObjects } from "../../creatFunctions/createPosts";
+import { createObjects } from "../../creatFunctions/createObjects";
 import { progressCheck } from "../../progressCheck";
 import { useFilter } from "../../hooks/useFilter/useFilter";
 

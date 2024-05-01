@@ -2,10 +2,9 @@ import { useState } from "react";
 
 export const useInputCheck = () => {
   const [inputData, setFormData] = useState({});
-
+  //  наверное все же initData
   const setData = (formData, data = null, canRepeat = false) => {
     if (Object.keys(inputData).length === 0 || canRepeat) {
-      console.log(inputData);
       var obj = { formData };
       if (data) {
         obj.additionalData = data;
@@ -48,7 +47,6 @@ export const useInputCheck = () => {
     else {
       obj.formData = { ...obj.formData, [name]: value };
     }
-    console.log(obj);
     setFormData(obj);
   };
 

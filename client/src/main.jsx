@@ -15,6 +15,7 @@ import { UserPage } from "./routers/User/UserPage";
 import { TagList } from "./routers/Tags/TagList";
 import { UndeclaretedList } from "./routers/UndeclaretedList/UndeclaretedList";
 import { ArchiveList } from "./routers/ArchiveList/ArchiveList";
+import { SingleUndeclaretedPost } from "./routers/UndeclaretedList/SingleUndeclaretedPost";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: "/store/:postId",
         element: <SinglePost />,
+      },
+      {
+        path: "/undeclared/:postId",
+        element: <SingleUndeclaretedPost />,
       },
       {
         path: "/users",

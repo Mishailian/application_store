@@ -2,22 +2,24 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuthenticationMutation } from "../api/apiSlice";
 import { setToken } from "./authSlice";
-import { setUsers } from "./usesSlice";
-import { setTags } from "./tagsSlice";
+import { setTagsTable } from "./tagsSlice";
+import { setUsersTable } from "./usesSlice";
+import { useGetTagsQuery } from "../api/apiSlice";
 import { useGetUsersDBQuery } from "../api/apiSlice";
 import { progressCheck } from "../../progressCheck";
-import { useUpdateUsersTable } from "../../static/static";
+import { updateObjectsTable } from "../../static/static";
 
 export const Login = () => {
   const authToken = useSelector((state) => state.auth.token);
-  var updateUsersTable = useUpdateUsersTable();
+  var updateUsersTable = updateObjectsTable(setUsersTable);
+  var updateTagsTable = updateObjectsTable(setTagsTable);
   const dispatch = useDispatch();
   const [credentials, setCredentials] = useState({
     username: "",
     password: "",
   });
-  const setUsersDataBase = (data) => dispatch(setUsers(data));
-  const obj = useGetUsersDBQuery();
+  const tags = useGetTagsQuery();
+  const users = useGetUsersDBQuery();
   const [auth] = useAuthenticationMutation();
 
   const handleLogin = async () => {
@@ -37,9 +39,8 @@ export const Login = () => {
             token: token,
           })
         );
-
-        const users = progressCheck(obj, setUsersDataBase);
-        updateUsersTable(users);
+        progressCheck(tags, updateTagsTable);
+        progressCheck(users, updateUsersTable);
       } else {
         console.error(error);
       }

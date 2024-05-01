@@ -49,7 +49,8 @@ export const useAddField = (fieldStructure, Component) => {
     <div>
       <Component
         chenge={handleChange}
-        del={deleteField}
+        eventFunc={deleteField}
+        eventFuncName={"del"}
         data={formData.formData}
         name={ob.id}
       />

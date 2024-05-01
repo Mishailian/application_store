@@ -24,7 +24,7 @@ export const apiSlice = createApi({
     },
     credentials: "include",
   }),
-  tagTypes: ["POSTS", "POST", "USESRS", "USER", "UNDECLARED"],
+  tagTypes: ["POSTS", "POST", "USESRS", "USER", "UNDECLARED", "TAGS"],
   endpoints: (builder) => ({
     getArhive: builder.query({
       query: () => "/archive/",
@@ -52,8 +52,16 @@ export const apiSlice = createApi({
     }),
     getPost: builder.query({
       providesTags: ["POST"],
+      invalidatesTags: ["TAGS"],
       query: ({ postId }) => ({
         url: `/store/${postId}/`,
+        method: "GET",
+      }),
+    }),
+    getUndeclaredPost: builder.query({
+      providesTags: ["UNDECLARED"],
+      query: ({ postId }) => ({
+        url: `/undeclared/${postId}/`,
         method: "GET",
       }),
     }),
@@ -81,6 +89,7 @@ export const apiSlice = createApi({
       }),
     }),
     getTags: builder.query({
+      providesTags: ["TAGS"],
       query: () => "/tags/",
     }),
 
@@ -92,6 +101,7 @@ export const apiSlice = createApi({
       }),
     }),
     chengeTag: builder.mutation({
+      invalidatesTags: ["TAGS"],
       query: ({ initialState, tagId }) => ({
         url: `/tags/${tagId}/`,
         method: "PUT",
@@ -119,6 +129,7 @@ export const apiSlice = createApi({
     }),
 
     deleteTag: builder.mutation({
+      invalidatesTags: ["TAGS"],
       query: (tagId) => ({ url: `/tags/${tagId}/`, method: "DELETE" }),
     }),
     deletePost: builder.mutation({
@@ -141,6 +152,7 @@ export const apiSlice = createApi({
       },
     }),
     addTag: builder.mutation({
+      invalidatesTags: ["TAGS"],
       query: ({ initialState }) => ({
         url: "/tags/",
         body: initialState,
@@ -160,6 +172,7 @@ export const {
   useGetUserQuery,
   useGetUsersDBQuery,
   useGetPostQuery,
+  useGetUndeclaredPostQuery,
   useGetTagsQuery,
   useDeclaredPostMutation,
   useChengeTagMutation,

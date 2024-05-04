@@ -1,6 +1,5 @@
 import { PostForm } from "../forms/PostForm";
 import { useNavigate } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { useSelector } from "react-redux";
 import { ChooseBlock } from "./ChooseBlock";
 import { PostBlockButtons } from "./postBlockButtons";

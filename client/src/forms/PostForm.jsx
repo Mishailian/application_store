@@ -1,12 +1,12 @@
 export var PostForm = (props) => {
   return (
     <>
-      <div className={`card w-50`} data-testid="PostForm">
-        <div className="card-body d-flex justify-content-start">
+      <div className="" data-testid="PostForm">
+        <div className="">
           {/* main block */}
-          <div className="flex-grow-1">
-            <h5 className="card-title">{props.name}</h5>
-            <p className="card-text">{props.date_create}</p>
+          <div className="bg-red-200 grid grid-cols-2 grid-rows-3">
+            <h5 className="">{props.name}</h5>
+            <p className="">{props.date_create}</p>
             {props.buttons}
           </div>
           {/* simple structure executors pick for example */}

@@ -18,7 +18,6 @@ export var ApplicationBlock = (props) => {
           style={{ height: "3em", width: "25%" }}
         />
       </div>
-      <br />
       <label htmlFor="floatingTextarea2">Описание</label>
       <TasksHeader />
       {listOfComponents}

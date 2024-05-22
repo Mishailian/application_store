@@ -70,7 +70,6 @@ export var TasksFields = (props) => {
         </div>
         {props.data.about && <input value={props.data.about} />}
       </form>
-      <br></br>
     </div>
   );
 };

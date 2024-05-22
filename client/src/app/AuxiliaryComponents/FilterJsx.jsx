@@ -16,9 +16,9 @@ export const FilterJsx = (props) => {
   }
 
   const result = elemlist.map((elem) => (
-    <div className="form-check form-switch">
+    <div>
       <input
-        className="form-check-input"
+        className="custom-checkbox"
         name={elem[1]}
         value={props.isOn?.[elem[1]]}
         type="checkbox"
@@ -27,7 +27,7 @@ export const FilterJsx = (props) => {
         onChange={props.handleSwitch}
         checked={props.isOn?.[elem[1]]}
       />
-      <label className="form-check-label" shtmlFor="flexSwitchCheckDefault">
+      <label className="" shtmlFor="flexSwitchCheckDefault">
         {elem[0]}
       </label>
     </div>
@@ -41,11 +41,9 @@ export const FilterJsx = (props) => {
   ));
 
   return (
-    <nav className="navbar sticky-bottom bg-body-tertiary">
-      <div className="container-fluid">
-        {result}
-        {tags}
-      </div>
-    </nav>
+    <div className="row-start-3 row-span-5 col-end-7 dButton bg-colarC rounded-lg">
+      {result}
+      {tags}
+    </div>
   );
 };

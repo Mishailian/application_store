@@ -14,7 +14,7 @@ from rest_framework.permissions import IsAuthenticated
 from django.http import Http404, HttpResponseNotFound
 
 # initialization of constants
-limitOfReturnedObjects = 5
+limitOfReturnedObjects = 14
 
 
 class Temporary_storage_api(viewsets.ModelViewSet):

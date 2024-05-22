@@ -22,10 +22,8 @@ export var TasksHeader = () => {
             <label htmlFor="inputEmail4" className="form">
               <strong>Планируемый срок</strong>
             </label>
-            <br></br>
           </div>
           <div className="col-md-1">
-            <br></br>
           </div>
         </form>
       </div>

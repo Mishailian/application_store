@@ -17,7 +17,7 @@ export const Root = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   var isTokenValid = JSON.parse(localStorage.getItem("persist:root"));
-  isTokenValid = JSON.parse(isTokenValid.auth).token;
+  isTokenValid = JSON.parse(isTokenValid.auth)?.token;
   useEffect(() => {
     if (!isTokenValid) {
       dispatch(
@@ -48,7 +48,10 @@ export const Root = () => {
 
     result = (
       <>
-        <div id="sidebar">
+        <div
+          id="sidebar"
+          className="row-span-12 col-start-1 col-end-2 bg-sideBar"
+        >
           <div>
             <form id="search-form" role="search">
               <input
@@ -70,7 +73,8 @@ export const Root = () => {
           </nav>
           <h1 onClick={() => navigate(s.paths.auth)}>{username}</h1>
         </div>
-        <div id="detail">
+        <div className="row-span-1 col-start-2 col-end-7 bg-white">header</div>
+        <div className="row-span-11 col-start-2 col-end-7 bg-mainBG">
           <Outlet />
         </div>
       </>

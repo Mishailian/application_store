@@ -99,7 +99,6 @@ export const TasksInputFields = (props) => {
           }
         />
       </form>
-      <br></br>
     </div>
   );
 };

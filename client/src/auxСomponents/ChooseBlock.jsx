@@ -8,7 +8,9 @@ export var ChooseBlock = (obj = {}, callback) => {
     var name = data[1];
     return (
       <div
+        className="cursor-pointer"
         onClick={() => {
+          setClose(true);
           callback(id);
         }}
       >
@@ -20,17 +22,7 @@ export var ChooseBlock = (obj = {}, callback) => {
   result = isClose ? (
     <div data-testid="unVisibleBlock"></div>
   ) : (
-    <div
-      data-testid="visibleBlock"
-      style={{
-        with: "100px",
-        height: "100px",
-        margin: "10px",
-        paddingBottom: "10px",
-        backgroundColor: "lightblue",
-        marginTop: "10px",
-      }}
-    >
+    <div data-testid="visibleBlock" className="choseExecutor">
       {...choseTable}
     </div>
   );

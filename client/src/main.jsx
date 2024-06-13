@@ -15,6 +15,7 @@ import { TagList } from "./routers/Tags/TagList";
 import { UndeclaretedList } from "./routers/UndeclaretedList/UndeclaretedList";
 import { ArchiveList } from "./routers/ArchiveList/ArchiveList";
 import { SingleUndeclaretedPost } from "./routers/UndeclaretedList/SingleUndeclaretedPost";
+import { StrictMode } from "react";
 
 const router = createBrowserRouter([
   {
@@ -71,9 +72,11 @@ const router = createBrowserRouter([
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
-      <RouterProvider router={router} />
-    </PersistGate>
-  </Provider>
+  <StrictMode>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <RouterProvider router={router} />
+      </PersistGate>
+    </Provider>
+  </StrictMode>
 );

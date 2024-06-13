@@ -5,7 +5,9 @@ import { ChooseBlock } from "./ChooseBlock";
 import { PostBlockButtons } from "./postBlockButtons";
 import { ChooseExecutor } from "./ChooseExecutor";
 
-export const PostBlock = (props) => {
+import { memo } from "react";
+
+export const PostBlock = memo((props) => {
   var is_superuser = useSelector((state) => state.auth.is_superuser);
   var path = props.data.path;
   var addStuctures;
@@ -43,4 +45,4 @@ export const PostBlock = (props) => {
     addStuctures: addStuctures,
   });
   return <>{postBlock}</>;
-};
+});

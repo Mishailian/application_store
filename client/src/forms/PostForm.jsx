@@ -2,7 +2,7 @@ export var PostForm = (props) => {
   return (
     <>
       <div
-        className="col-span-2 row-span-2 min-w-2/3 w-full min-h-3  max-h-full h-full bg-white rounded-md grid grid-cols-3 grid-rows-2 z-0 "
+        className="col-span-2 row-span-2 min-w-2/3 w-full min-h-3 overflow-hidden max-h-full h-full relative bg-white rounded-md grid grid-cols-3 grid-rows-2 z-0 shadow-sm hover:shadow-md transition-all duration-300"
         data-testid="PostForm"
       >
         {/* main block */}

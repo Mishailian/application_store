@@ -642,12 +642,12 @@ video {
   grid-row-start: 1;
 }
 
-.row-start-3 {
-  grid-row-start: 3;
+.row-start-12 {
+  grid-row-start: 12;
 }
 
-.row-start-7 {
-  grid-row-start: 7;
+.row-start-2 {
+  grid-row-start: 2;
 }
 
 .row-end-12 {
@@ -730,6 +730,10 @@ video {
   width: 100%;
 }
 
+.cursor-pointer {
+  cursor: pointer;
+}
+
 .grid-flow-col {
   grid-auto-flow: column;
 }
@@ -788,6 +792,10 @@ video {
 
 .justify-self-end {
   justify-self: end;
+}
+
+.overflow-hidden {
+  overflow: hidden;
 }
 
 .rounded-lg {
@@ -866,8 +874,34 @@ video {
   line-height: 1.75rem;
 }
 
+.text-xs {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}
+
+.shadow-sm {
+  --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
 .filter {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.duration-300 {
+  transition-duration: 300ms;
 }
 
 * {
@@ -899,79 +933,127 @@ body {
   width: 100%;
   height: 100%;
   border-radius: 0.5rem;
-  border: 0px solid transparent;
+  border: 0rem solid transparent;
   /* Начальная граница */
-  outline: 2px solid #ff715b;
+  outline: 0.1rem solid #ff715b;
   /* Устанавливаем красный цвет границы */
   box-sizing: border-box;
   /* Учитываем ширину границы внутри размеров элемента */
-  transition-duration: 100ms;
-  transition-property: outline-width, border;
+  transition-duration: 200ms;
+  transition-property: all;
   z-index: 9;
 }
 
 .dButton:hover::before {
-  outline-width: 6px;
+  outline-width: 0.2rem;
 }
 
 .removeB:active::before {
-  border: 12px solid #ff715b;
+  border: 0.4rem solid #ff715b;
 }
 
 .openB:active::before {
-  border: 12px solid #1ea896;
+  border: 0.4rem solid #1ea896;
 }
 
 /* checkbox */
 
-.custom-checkbox input[type="checkbox"] {
+/* input[type="checkbox"] {
   display: none;
-}
+} */
 
 /* Стили для кастомного чекбокса */
 
 .custom-checkbox {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-}
-
-.custom-checkbox span {
-  width: 20px;
-  height: 20px;
-  border: 2px solid #000;
+  margin: 0%;
+  padding: 0%;
   display: inline-block;
   position: relative;
-  margin-right: 10px;
-  border-radius: 4px;
-  /* Можно сделать квадратным, если убрать */
-  transition: background-color 0.3s, border-color 0.3s;
+  cursor: pointer;
+  width: 3.1em;
+  height: 1.2em;
+  box-shadow: #1ea896 0px 0px 2px;
+  border-radius: 100px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  transition: all 0.5s cubic-bezier(0.2, 0.85, 0.32, 1.2);
+  z-index: 10;
 }
 
-/* Добавляем стили для состояния "checked" */
-
-.custom-checkbox input[type="checkbox"]:checked + span {
-  background-color: #000;
-  border-color: #000;
-}
-
-.custom-checkbox span::after {
+.custom-checkbox::before {
   content: "";
   position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 10px;
-  height: 10px;
-  background-color: white;
-  transform: translate(-50%, -50%) scale(0);
-  transition: transform 0.3s;
+  background: white;
+  border-radius: 100px;
+  transition: all 0.5s cubic-bezier(0.2, 0.85, 0.32, 1.2);
+  width: 100%;
+  height: 100%;
+  z-index: 1;
 }
 
-.custom-checkbox input[type="checkbox"]:checked + span::after {
-  transform: translate(-50%, -50%) scale(1);
+.custom-checkbox::after {
+  content: "";
+  margin-left: 0px;
+  position: absolute;
+  width: 1.1em;
+  height: 1.1em;
+  border-radius: 100px;
+  background-color: #1ea896;
+  top: 1px;
+  transition: all 0.5s cubic-bezier(0.2, 0.85, 0.32, 1.2);
+  left: 1px;
+  z-index: 10;
+}
+
+.custom-checkbox:checked::after {
+  background-color: white;
+  margin-left: 2em;
+}
+
+.custom-checkbox:checked::before {
+  background-color: #1ea896;
+  box-shadow: white 0px 0px 2px;
+}
+
+.custom-checkbox:hover::before {
+  height: 110%;
+  width: 110%;
+}
+
+.custom-checkbox:hover::after {
+  width: 1.2em;
+  height: 1.2em;
+}
+
+/* chose executor */
+
+div .choseExecutor {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  background: red;
+  right: 0;
+  top: 0;
 }
 
 .before\:outline-blueC::before {
   content: var(--tw-content);
   outline-color: #1EA896;
+}
+
+.hover\:text-xs:hover {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.hover\:text-xl:hover {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+.hover\:shadow-md:hover {
+  --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }

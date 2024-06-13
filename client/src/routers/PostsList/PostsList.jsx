@@ -21,7 +21,7 @@ export const PostsList = () => {
     for (let i = 0; i < countOfPages; i++) {
       result.push(<button onClick={() => setPage(i)}>{i}</button>);
     }
-    return <div className="col-start-3 col-end-4 row-start-7">{result}</div>;
+    return <div className="col-start-3 col-end-4 row-start-12">{result}</div>;
   }
   var [chng] = useChengePostMutation();
   const [del] = useDeletePostMutation();
@@ -55,7 +55,7 @@ export const PostsList = () => {
         <button className="w-1/12">{">"}</button>
       </div>
       {fillterJsx}
-      <div className="col-start-1 col-end-6 row-start-3 row-end-12 grid grid-rows-16 grid-cols-4 gap-4 grid-flow-row-dense min-h-full max-h-full justify-items-center">
+      <div className="col-start-1 col-end-6 row-start-2 row-end-12 grid grid-rows-16 grid-cols-4 gap-4 grid-flow-row-dense min-h-full max-h-full justify-items-center">
         {content}
       </div>
       {pages}

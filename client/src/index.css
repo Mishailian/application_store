@@ -2,6 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+/* composites clasess */
+.interactive-element {
+  @apply rounded-lg focus:outline-2 shadow-md hover:shadow-lg;
+}
+
+.interactive-element:hover {
+  @apply shadow-lg;
+}
+
+@font-face {
+  font-family: Garamond;
+  src: url("./fonts/EB_Garamond/static/EBGaramond-Medium.ttf");
+}
+
 * {
   text-decoration: none;
 }
@@ -10,6 +24,7 @@ html {
   margin: 0px;
   height: 100%;
   width: 100%;
+  font-family: Garamond;
 }
 
 body {
@@ -21,6 +36,11 @@ body {
 .dButton {
   display: inline-block;
   position: relative;
+  border-radius: 5px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 .dButton::before {
   content: "";
@@ -31,7 +51,7 @@ body {
   height: 100%;
   border-radius: 0.5rem;
   border: 0rem solid transparent; /* Начальная граница */
-  outline: 0.1rem solid #ff715b; /* Устанавливаем красный цвет границы */
+  outline: 0.1rem solid var(--color-colarC); /* Устанавливаем красный цвет границы */
   box-sizing: border-box; /* Учитываем ширину границы внутри размеров элемента */
   transition-duration: 200ms;
   transition-property: all;
@@ -43,11 +63,11 @@ body {
 }
 
 .removeB:active::before {
-  border: 0.4rem solid #ff715b;
+  border: 0.4rem solid var(--color-colarC);
 }
 
 .openB:active::before {
-  border: 0.4rem solid #1ea896;
+  border: 0.4rem solid var(--color-blueC);
 }
 
 /* checkbox */
@@ -64,12 +84,11 @@ body {
   cursor: pointer;
   width: 3.1em;
   height: 1.2em;
-  box-shadow: #1ea896 0px 0px 2px;
   border-radius: 100px;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  transition: all 0.5s cubic-bezier(0.2, 0.85, 0.32, 1.2);
+  transition: all 1s cubic-bezier(0.2, 0.85, 0.32, 1.2);
   z-index: 10;
 }
 
@@ -78,7 +97,9 @@ body {
   position: absolute;
   background: white;
   border-radius: 100px;
-  transition: all 0.5s cubic-bezier(0.2, 0.85, 0.32, 1.2);
+  box-shadow: var(--color-blueC) 0px 0px 2px;
+
+  transition: all 1s cubic-bezier(0.2, 0.85, 0.32, 1.2);
   width: 100%;
   height: 100%;
   z-index: 1;
@@ -91,7 +112,7 @@ body {
   width: 1.1em;
   height: 1.1em;
   border-radius: 100px;
-  background-color: #1ea896;
+  background-color: var(--color-blueC);
   top: 1px;
   transition: all 0.5s cubic-bezier(0.2, 0.85, 0.32, 1.2);
   left: 1px;
@@ -104,7 +125,7 @@ body {
 }
 
 .custom-checkbox:checked::before {
-  background-color: #1ea896;
+  background-color: var(--color-blueC);
   box-shadow: white 0px 0px 2px;
 }
 
@@ -122,9 +143,63 @@ body {
 
 div .choseExecutor {
   position: absolute;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row-reverse;
+  align-content: baseline;
   width: 50%;
   height: 100%;
-  background: red;
   right: 0;
   top: 0;
+}
+
+/* styles for add post */
+
+.taskField {
+  outline-width: 0px;
+  outline-style: solid;
+  outline-color: var(--color-colarC);
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.taskField:focus {
+  outline-width: 2px;
+}
+
+.highlightSecondEl .addComp:nth-child(2) {
+  outline: 1px solid gray;
+}
+
+.userList .dButton:nth-child(1) {
+  background-color: var(--color-colarC);
+}
+
+.userList .dButton:nth-child(2) {
+  background-color: var(--color-blueC);
+}
+
+.userList .dButton:nth-child(2)::before {
+  outline-color: var(--color-blueC);
+}
+
+.userList .dButton:nth-child(5n)::before {
+  outline-color: var(--color-blueC);
+}
+
+.userList .dButton:nth-child(3) {
+  background-color: white;
+}
+
+.userList .dButton:nth-child(4n) {
+  background-color: var(--color-colarC);
+}
+
+.userList .dButton:nth-child(5n) {
+  background-color: var(--color-blueC);
+}
+
+.userList .dButton:nth-child(6n) {
+  background-color: var(--color-mainBG);
 }

@@ -8,7 +8,7 @@ export var ChooseBlock = (obj = {}, callback) => {
     var name = data[1];
     return (
       <div
-        className="cursor-pointer"
+        className="cursor-pointer inline-block p-1 shadow-sm hover:shadow-md"
         onClick={() => {
           setClose(true);
           callback(id);
@@ -22,7 +22,10 @@ export var ChooseBlock = (obj = {}, callback) => {
   result = isClose ? (
     <div data-testid="unVisibleBlock"></div>
   ) : (
-    <div data-testid="visibleBlock" className="choseExecutor">
+    <div
+      data-testid="visibleBlock"
+      className="choseExecutor shadow-md bg-white"
+    >
       {...choseTable}
     </div>
   );

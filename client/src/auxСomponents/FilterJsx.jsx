@@ -4,16 +4,9 @@ export const FilterJsx = (props) => {
   let elemlist = [
     ["дата создания", "date_create"],
     ["дата редоктирования", "data_update"],
-    ["дата дэдлайна xxxxxxx", "data_dead_line"],
+    ["дата дэдлайна", "data_dead_line"],
     ["по имени", "name"],
   ];
-
-  switch (props.mode) {
-    case "PostsPage":
-      tags.push(1);
-    case "UserPage":
-      null;
-  }
 
   const result = elemlist.map((elem) => (
     <div className="z-10 ">
@@ -36,12 +29,12 @@ export const FilterJsx = (props) => {
   tags = tags.map((tag) => (
     <div class="form-check">
       <input class="" type="checkbox" value="" id="" />
-      <label class="form-check-label">Default checkbox</label>
+      <label class="">Default checkbox</label>
     </div>
   ));
 
   return (
-    <div className="relative z-0 row-start-2 row-span-5 col-end-7 dButton bg-colarC rounded-lg">
+    <div className="relative z-0 row-start-1 row-span-5 col-end-7 dButton bg-colarC  rounded-lg">
       {result}
       {tags}
     </div>

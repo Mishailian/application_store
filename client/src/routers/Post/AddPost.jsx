@@ -12,7 +12,7 @@ export const AddPost = () => {
   var s = staticApi();
   const [postObj] = useAddPostMutation();
   const { formData, handleChange, handleSubmit, setData } = useInputCheck();
-  var { component, componentData } = useAddField(
+  var { component, componentData, repeatControll, addField } = useAddField(
     s.structure.addPosition,
     TasksInputFields
   );
@@ -25,20 +25,34 @@ export const AddPost = () => {
   }, [isSubmite]);
 
   return (
-    <div>
-      <h1>служебная записка</h1>
-      <TasksHeader />
-      {component}
-      <button
-        data-testid="AddPostSubmite"
-        onClick={() => {
-          docxCreator(componentData.formData);
-          handleChange({ about: JSON.stringify(componentData.formData) });
-          setSubmite(true);
-        }}
-      >
-        добавить пост
-      </button>{" "}
-    </div>
+    <>
+      <div className="flex text-center">
+        <p className="basis-11/12 ">служебная записка</p>
+      </div>
+
+      <div className="h-5/6  overflow-scroll shadow-lg highlightSecondEl items-center">
+        <TasksHeader />
+        {component}
+      </div>
+      <div className="flex justify-end addPostButtons">
+        {repeatControll}
+        <div className="flex justify-center items-center">
+          <button className="dButton p-2 pl-4 pr-4 mr-2" onClick={addField}>
+            +
+          </button>
+          <button
+            className="dButton p-2  ml-2 mr-4"
+            data-testid="AddPostSubmite"
+            onClick={() => {
+              docxCreator(componentData.formData);
+              handleChange({ about: JSON.stringify(componentData.formData) });
+              setSubmite(true);
+            }}
+          >
+            добавить пост
+          </button>
+        </div>
+      </div>
+    </>
   );
 };

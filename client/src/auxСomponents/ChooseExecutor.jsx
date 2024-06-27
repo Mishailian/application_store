@@ -1,7 +1,11 @@
 export var ChooseExecutor = (chengeState, executor, result) => {
   return (
     <div className="ml-2 justify-self-end">
-      {<div onClick={() => chengeState()}>{executor ?? "❌"}</div>}
+      {
+        <div className="cursor-pointer" onClick={() => chengeState()}>
+          {executor ?? "❌"}
+        </div>
+      }
       {result}
     </div>
   );

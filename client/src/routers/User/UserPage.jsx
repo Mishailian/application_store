@@ -1,29 +1,22 @@
 import { useParams } from "react-router-dom";
-import { useGetFilterPostsQuery } from "../../app/api/apiSlice";
-import { progressCheck } from "../../progressCheck";
-import { createObjects } from "../../creatFunctions/createObjects";
-import { User } from "./User";
-import { useFilter } from "../../hooks/useFilter/useFilter";
-import { PostBlock } from "../../auxСomponents/PostBlock";
+import { createObjectsPage } from "../../creatFunctions/createObjectsPage";
+import {
+  useChengePostMutation,
+  useGetFilterPostsQuery,
+  useDeletePostMutation,
+} from "../../app/api/apiSlice";
+import { useGetPostsFilteredCountQuery } from "../../app/api/apiSlice";
 
 export const UserPage = () => {
   const { userId } = useParams("userId");
-  const objPosts = useGetFilterPostsQuery({ ex_i: userId });
-  var { fillter, fillterJsx } = useFilter("UserPage");
-  var callBack = (data) => {
-    var objects = fillter(data);
-    return createObjects(objects, PostBlock, {
-      alternativeView: () => <h2>👦</h2>,
-      path: "store",
-    });
-  };
-  const result = progressCheck(objPosts, callBack);
+  const result = createObjectsPage({
+    queryParams: { ex_i: userId },
+    queryFunction: useGetFilterPostsQuery,
+    alternativeView: () => <h2>👦</h2>,
+    queryPostCount: useGetPostsFilteredCountQuery,
+    chng: useChengePostMutation,
+    del: useDeletePostMutation,
+  });
 
-  return (
-    <div>
-      <User userId={userId} />
-      {fillterJsx}
-      {result}
-    </div>
-  );
+  return <>{result}</>;
 };

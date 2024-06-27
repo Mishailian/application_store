@@ -2,7 +2,7 @@ import { useState } from "react";
 import { filterByCondition } from "../../creatFunctions/filterFunctions/filterFunctions";
 import { FilterJsx } from "../../auxСomponents/FilterJsx";
 
-export const useFilter = (mode) => {
+export const useFilter = () => {
   const [isrevers, setrevers] = useState({ reverse: false });
   const [getfilterAim, setfilterAim] = useState();
   const [getfilter, setfilter] = useState(false);
@@ -47,7 +47,6 @@ export const useFilter = (mode) => {
     fillter,
     fillterJsx: (
       <FilterJsx
-        mode={mode}
         isOn={isOn}
         isrevers={isrevers}
         handleSwitch={handleSwitch}

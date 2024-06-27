@@ -17,6 +17,13 @@ from django.http import Http404, HttpResponseNotFound
 limitOfReturnedObjects = 14
 
 
+def cunculatePage(page):
+    page = int(page)
+    start = page * limitOfReturnedObjects
+    end = start + limitOfReturnedObjects
+    return [start, end]
+
+
 class Temporary_storage_api(viewsets.ModelViewSet):
     queryset = Temporary_storage.objects.all()
     serializer_class = Temporary_storage_serializer
@@ -34,12 +41,15 @@ class Temporary_storage_api(viewsets.ModelViewSet):
         page = self.request.query_params.get('page')
         # ⥥ get count of posts
         countOfObjects = self.request.query_params.get('count')
+        # ⥥ get count of filtered posts
+        countOfFilteredObjects = self.request.query_params.get('ex_count')
 
         if executor_id_param:
             try:
+                borders = cunculatePage(int(page))
                 executor_id_param = int(executor_id_param)
                 queryset = Temporary_storage.objects.filter(
-                    executor_id=executor_id_param)
+                    executor_id=executor_id_param)[borders[0]:borders[1]]
             except ValueError:
                 return Response({'error': 'Invalid executor_id_param. Must be a valid integer.'})
         elif executor_dbase:
@@ -49,10 +59,9 @@ class Temporary_storage_api(viewsets.ModelViewSet):
                 return Response({'error': 'something go wrong :('})
         elif page:
             try:
-                page = int(page)
-                start = page * limitOfReturnedObjects
-                end = start + limitOfReturnedObjects
-                queryset = Temporary_storage.objects.all()[start:end]
+                borders = cunculatePage(int(page))
+                queryset = Temporary_storage.objects.all()[
+                    borders[0]:borders[1]]
                 print(queryset)
 
             except Exception:
@@ -64,6 +73,17 @@ class Temporary_storage_api(viewsets.ModelViewSet):
 
             except Exception:
                 return Response({'error': 'something go wrong :('})
+
+        elif countOfFilteredObjects:
+            try:
+                countOfFilteredObjects = int(countOfFilteredObjects)
+                queryset = Temporary_storage.objects.filter(
+                    executor_id=countOfFilteredObjects).count()
+                return Response(queryset)
+
+            except Exception:
+                return Response({'error': 'something go wrong :('})
+
         else:
             queryset = Temporary_storage.objects.all()[:limitOfReturnedObjects]
 
@@ -75,17 +95,37 @@ class Undeclared_temporary_storage_api(viewsets.ModelViewSet):
     queryset = Undeclared_temporary_storage.objects.all()
     serializer_class = Undeclared_temporary_storage_serializer
     lookup_field = 'pk'
+# need pagination here!!!!!!!!
 
     def list(self, request, *args, **kwargs):
         declared_id_param = self.request.query_params.get('declared')
+        page = self.request.query_params.get('page')
+        countOfObjects = self.request.query_params.get('count')
+
         if declared_id_param:
             try:
                 declared_id_param = int(declared_id_param)
                 Undeclared_temporary_storage.declared(declared_id_param)
+                return Response()
             except ValueError:
                 return HttpResponseNotFound()
 
-        queryset = Undeclared_temporary_storage.objects.all()
+        elif countOfObjects:
+            try:
+                print(Undeclared_temporary_storage.objects.count())
+                return Response(Undeclared_temporary_storage.objects.count())
+
+            except Exception:
+                return Response({'error': 'something go wrong :('})
+
+        elif page:
+            borders = cunculatePage(int(page))
+            queryset = Undeclared_temporary_storage.objects.all()[
+                borders[0]:borders[1]]
+        else:
+            queryset = Undeclared_temporary_storage.objects.all()[
+                :limitOfReturnedObjects]
+
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
 

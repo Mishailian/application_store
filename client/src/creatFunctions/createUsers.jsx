@@ -16,9 +16,8 @@ export const createUsers = () => {
       });
     })(id);
     result.push(
-      <div key={id}>
+      <div key={id} className="dButton" onClick={handleleClick}>
         <User userId={id} />
-        <button data-testid="user-list-button" onClick={handleleClick}></button>
       </div>
     );
   }

@@ -6,7 +6,6 @@ const buildQueryParams = (params) => {
     result += `${key}=${params[key]}&`;
   }
   result = result.slice(0, -1);
-  console.log(result);
   return result;
 };
 
@@ -46,9 +45,29 @@ export const apiSlice = createApi({
       providesTags: ["POSTS"],
       query: () => "/store/?count=1",
     }),
+
+    getUndeclaredPostsCount: builder.query({
+      providesTags: ["UNDECLARED"],
+      query: () => "/undeclared/?count=1",
+    }),
+
+    getPostsFilteredCount: builder.query({
+      providesTags: ["POSTS"],
+      query: (exId) => `/store/?ex_count=${exId}`,
+    }),
+
     getUndeclaredPosts: builder.query({
       providesTags: ["UNDECLARED"],
-      query: () => "/undeclared/",
+      query: ({ page }) => {
+        page = page ?? "";
+        let url = "/undeclared/";
+        if (page) url = url + `?page=${page}`;
+
+        return {
+          url: url,
+          method: "Get",
+        };
+      },
     }),
     getPost: builder.query({
       providesTags: ["POST"],
@@ -140,6 +159,14 @@ export const apiSlice = createApi({
       }),
     }),
 
+    deleteUndeclaredPost: builder.mutation({
+      invalidatesTags: ["UNDECLARED"],
+      query: (postId) => ({
+        url: `/undeclared/${postId}/`,
+        method: "DELETE",
+      }),
+    }),
+
     addPost: builder.mutation({
       invalidatesTags: ["UNDECLARED"],
       query: ({ initialState }) => {
@@ -167,6 +194,8 @@ export const {
   useAuthenticationMutation,
   useGetPostsQuery,
   useGetPostsCountQuery,
+  useGetUndeclaredPostsCountQuery,
+  useGetPostsFilteredCountQuery,
   useGetUndeclaredPostsQuery,
   useGetUsersQuery,
   useGetUserQuery,
@@ -180,6 +209,7 @@ export const {
   useChengePostMutation,
   useDeleteTagMutation,
   useDeletePostMutation,
+  useDeleteUndeclaredPostMutation,
   useAddPostMutation,
   useAddTagMutation,
 } = apiSlice;

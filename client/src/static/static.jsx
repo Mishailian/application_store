@@ -8,23 +8,23 @@ export var staticApi = () => {
   var obj = {
     paths: {
       users: "/users/",
-      posts: "/store/",
-      undeclaredPosts: "/undeclared/",
-      arhive: "/archived/",
+      store: "/store/",
+      undeclared: "/undeclared/",
+      archived: "/archived/",
       auth: "/auth/",
       addPost: "/addPost/",
       addUser: "/addUser/",
       tagList: "/tagList/",
     },
     names: {
-      posts: "posts",
-      arhive: "arhive",
-      undeclaredPosts: "undeclared",
-      users: "users",
-      auth: "authorisation",
-      addPost: "addPost",
-      addUser: "addUser",
-      tagList: "tagList",
+      store: "Заявки",
+      archived: "Архив",
+      undeclared: "Регистрация",
+      users: "Пользователи",
+      auth: "Вход",
+      addPost: "Добавить",
+      addUser: "Пользователь",
+      tagList: "Тэги",
     },
 
     document: {
@@ -64,6 +64,7 @@ export var staticApi = () => {
         deadline: new Date(),
         isDone: false,
         tags: [],
+        about: "",
       },
     },
   };
